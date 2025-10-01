@@ -1,9 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { SearchForm } from "../../components/SearchForm";
 import { Summary } from "../../components/Summary";
 import { PriceHilight, TrasactionContainer, TrasactionsTable } from "./styles";
 
+interface TrasactionProps{
+  id:number,
+  description: string,
+  type: 'income' | 'outcome',
+  price: number,
+  category: string,
+  createdAt: string
+}
+
 export function Trasactions() {
+
+  const [trasactions, setTrasactions] = useState<TrasactionProps[]>([]);
+ 
+  async function loadTrasactions() {
+
+    
+     const response = await fetch('http://localhost:3333/trasactions');
+     const data = await response.json()
+
+     console.log(data);
+     setTrasactions(data)
+  }
+  useEffect(()=>{
+   loadTrasactions()
+  },[])
   return (
     <div>
       <Header />
@@ -12,36 +38,18 @@ export function Trasactions() {
         <SearchForm/>
         <TrasactionsTable>
           <tbody>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td><PriceHilight variant="income">R$ 13.000,00</PriceHilight></td>
-              <td>venda</td>
-              <td>28/09/2025</td>
+            {trasactions.map(trasaction => {
+              return(
+                    <tr key={trasaction.id}>
+              <td width="50%">{trasaction.description}</td>
+              <td><PriceHilight variant="income">{trasaction.price}</PriceHilight></td>
+              <td>{trasaction.category}</td>
+              <td>{trasaction.createdAt}</td>
             </tr>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td><PriceHilight variant="outcome">R$ 13.000,00</PriceHilight></td>
-              <td>venda</td>
-              <td>28/09/2025</td>
-            </tr>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td><PriceHilight variant="income">R$ 13.000,00</PriceHilight></td>
-              <td>venda</td>
-              <td>28/09/2025</td>
-            </tr>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td><PriceHilight variant="income">R$ 13.000,00</PriceHilight></td>
-              <td>venda</td>
-              <td>28/09/2025</td>
-            </tr>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td><PriceHilight variant="income">R$ 13.000,00</PriceHilight></td>
-              <td>venda</td>
-              <td>28/09/2025</td>
-            </tr>
+              )
+            })}
+          
+          
           </tbody>
         </TrasactionsTable>
       </TrasactionContainer>
