@@ -1,0 +1,29 @@
+{
+    "trasactions": [
+        {
+            "id":1,
+            "description":"Corte de cabelo",
+            "type": "outcome",
+            "category":"Gastos",
+            "price": 30,
+            "createdAt":"2025-10-01T01:59:15.682Z"
+        },
+        {
+            "id":3,
+            "description":"Desenvolvimento de site",
+            "type": "income",
+            "category":"Venda",
+            "price": 1220,
+            "createdAt":"2025-09-31T01:59:15.682Z"
+        },
+
+        {
+            "id":3,
+            "description":"Investimento crypto",
+            "type": "income",
+            "category":"Venda",
+            "price": 2000,
+            "createdAt":"2025-10-06T01:59:15.682Z"
+        }
+    ]
+}
