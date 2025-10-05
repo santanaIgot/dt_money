@@ -1,40 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from "phosphor-react";
 import { SummaryCard, SummaryContainer } from "./styles";
-import { useContext } from "react";
-import { TransactionContext } from "../../contexts/TrasactionsContext";
+import { priceFormatter } from "../../utils/format";
+import { useSummary } from "../../hooks/useSummary";
 
 export function Summary() {
-  const { transactions } = useContext(TransactionContext);
-
-  const summary = transactions.reduce(
-    (acc, transaction) => {
-      if (transaction.type == "income") {
-        acc.income += transaction.price;
-        acc.total += transaction.price;
-      } else {
-        acc.outcome -= transaction.price;
-        acc.total -= transaction.price;
-      }
-      return acc;
-    },
-    {
-      income: 0,
-      outcome: 0,
-      total: 0,
-    }
-  );
-
-  // const income = transactions.reduce((sum, transaction) => {
-  //     return transaction.type === 'income' ? sum + transaction.price : sum;
-  // }, 0);
-
-  // const outcome = transactions.reduce((sum, transaction) => {
-  //     return transaction.type === 'outcome' ? sum - transaction.price : sum;
-  // }, 0);
-
-  // const total = transactions.reduce((sum, transaction) => sum + transaction.price, 0)
-
+  
+  const summary = useSummary();
   return (
     <SummaryContainer>
       <SummaryCard>
@@ -42,21 +14,21 @@ export function Summary() {
           <span>Entradas</span>
           <ArrowCircleUp size={32} color="#00b37e" />
         </header>
-        <strong>{`R$ ${summary.income}`}</strong>
+        <strong>{priceFormatter.format(summary.income)}</strong>
       </SummaryCard>
       <SummaryCard>
         <header>
           <span>Saidas</span>
           <ArrowCircleDown size={32} color="#f75a68" />
         </header>
-        <strong>{`R$ ${summary.outcome}`}</strong>
+        <strong>{priceFormatter.format(summary.outcome)}</strong>
       </SummaryCard>
       <SummaryCard variant="green">
         <header>
           <span>Total</span>
-          <CurrencyDollar size={32} color="#fff" />
+          <CurrencyDollar size={32} color="#fff"/>
         </header>
-        <strong>{`R$ ${summary.total}`}</strong>
+        <strong>{priceFormatter.format(summary.total)}</strong>
       </SummaryCard>
     </SummaryContainer>
   );
