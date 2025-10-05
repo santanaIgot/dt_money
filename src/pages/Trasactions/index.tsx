@@ -5,6 +5,7 @@ import { SearchForm } from "../../components/SearchForm";
 import { Summary } from "../../components/Summary";
 import { PriceHilight, TrasactionContainer, TrasactionsTable } from "./styles";
 import { TransactionContext } from "../../contexts/TrasactionsContext";
+import { dateFormatter, priceFormatter } from "../../utils/format";
 
 export function Trasactions() {
   const { transactions } = useContext(TransactionContext);
@@ -22,12 +23,13 @@ export function Trasactions() {
                 <tr key={trasaction.id}>
                   <td width="50%">{trasaction.description}</td>
                   <td>
-                    <PriceHilight variant="income">
-                      {trasaction.price}
+                    <PriceHilight variant={trasaction.type}> 
+                      {trasaction.type == 'outcome' && '- '}
+                      {priceFormatter.format(trasaction.price)}
                     </PriceHilight>
                   </td>
                   <td>{trasaction.category}</td>
-                  <td>{trasaction.createdAt}</td>
+                  <td>{dateFormatter.format(new Date(trasaction.createdAt))}</td>
                 </tr>
               );
             })}
