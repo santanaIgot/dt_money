@@ -6,30 +6,31 @@ import { Summary } from "../../components/Summary";
 import { PriceHilight, TrasactionContainer, TrasactionsTable } from "./styles";
 import { TransactionContext } from "../../contexts/TrasactionsContext";
 
-
 export function Trasactions() {
-  const {transactions} = useContext(TransactionContext);
-  
+  const { transactions } = useContext(TransactionContext);
+
   return (
     <div>
       <Header />
       <Summary />
       <TrasactionContainer>
-        <SearchForm/>
+        <SearchForm />
         <TrasactionsTable>
           <tbody>
-            {transactions.map(trasaction => {
-              return(
-                    <tr key={trasaction.id}>
-              <td width="50%">{trasaction.description}</td>
-              <td><PriceHilight variant="income">{trasaction.price}</PriceHilight></td>
-              <td>{trasaction.category}</td>
-              <td>{trasaction.createdAt}</td>
-            </tr>
-              )
+            {transactions.map((trasaction) => {
+              return (
+                <tr key={trasaction.id}>
+                  <td width="50%">{trasaction.description}</td>
+                  <td>
+                    <PriceHilight variant="income">
+                      {trasaction.price}
+                    </PriceHilight>
+                  </td>
+                  <td>{trasaction.category}</td>
+                  <td>{trasaction.createdAt}</td>
+                </tr>
+              );
             })}
-          
-          
           </tbody>
         </TrasactionsTable>
       </TrasactionContainer>

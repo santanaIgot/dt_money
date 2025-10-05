@@ -4,47 +4,60 @@ import { SummaryCard, SummaryContainer } from "./styles";
 import { useContext } from "react";
 import { TransactionContext } from "../../contexts/TrasactionsContext";
 
-
 export function Summary() {
-    const {transactions} = useContext(TransactionContext)
-    const income = transactions.reduce((sum, transaction) => {
-        return transaction.type === 'income' ? sum + transaction.price : sum;
-    }, 0);
+  const { transactions } = useContext(TransactionContext);
 
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type == "income") {
+        acc.income += transaction.price;
+        acc.total += transaction.price;
+      } else {
+        acc.outcome -= transaction.price;
+        acc.total -= transaction.price;
+      }
+      return acc;
+    },
+    {
+      income: 0,
+      outcome: 0,
+      total: 0,
+    }
+  );
 
-    const outcome = transactions.reduce((sum, transaction) => {
-        return transaction.type === 'outcome' ? sum - transaction.price : sum;
-    }, 0);
+  // const income = transactions.reduce((sum, transaction) => {
+  //     return transaction.type === 'income' ? sum + transaction.price : sum;
+  // }, 0);
 
+  // const outcome = transactions.reduce((sum, transaction) => {
+  //     return transaction.type === 'outcome' ? sum - transaction.price : sum;
+  // }, 0);
 
-    
-    return(
-        <SummaryContainer>
-            <SummaryCard>
-                <header>
-                    <span>Entradas</span>
-                    <ArrowCircleUp size={32} color="#00b37e"/>
-                </header>
-                <strong>{
-                    income
-                }</strong>
-            </SummaryCard>
-             <SummaryCard>
-                <header>
-                    <span>Saidas</span>
-                    <ArrowCircleDown size={32} color="#f75a68"/>
-                </header>
-                <strong>
-                 {outcome}
-                </strong>
-            </SummaryCard>
-             <SummaryCard variant="green">
-                <header>
-                    <span>Total</span>
-                    <CurrencyDollar size={32} color="#fff"/>
-                </header>
-                <strong>{ transactions.reduce((sum, transaction) => sum + transaction.price, 0)}</strong>
-            </SummaryCard>
-        </SummaryContainer>
-    )
+  // const total = transactions.reduce((sum, transaction) => sum + transaction.price, 0)
+
+  return (
+    <SummaryContainer>
+      <SummaryCard>
+        <header>
+          <span>Entradas</span>
+          <ArrowCircleUp size={32} color="#00b37e" />
+        </header>
+        <strong>{`R$ ${summary.income}`}</strong>
+      </SummaryCard>
+      <SummaryCard>
+        <header>
+          <span>Saidas</span>
+          <ArrowCircleDown size={32} color="#f75a68" />
+        </header>
+        <strong>{`R$ ${summary.outcome}`}</strong>
+      </SummaryCard>
+      <SummaryCard variant="green">
+        <header>
+          <span>Total</span>
+          <CurrencyDollar size={32} color="#fff" />
+        </header>
+        <strong>{`R$ ${summary.total}`}</strong>
+      </SummaryCard>
+    </SummaryContainer>
+  );
 }
