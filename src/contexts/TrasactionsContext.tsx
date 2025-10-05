@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Children, createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 
 interface TransactionProps{
   id:number,
@@ -28,12 +28,10 @@ export function TrasactionsProvider({children}: TransactionsProviderProps) {
     const [transactions, setTransactions] = useState<TransactionProps[]>([]);
      
       async function loadTrasactions() {
-    
-        
          const response = await fetch('http://localhost:3333/trasactions');
          const data = await response.json()
     
-         console.log(data);
+        //  console.log(data);
          setTransactions(data)
       }
       useEffect(()=>{
