@@ -19,7 +19,7 @@ export function NewTrasactionModal() {
 
         <form>
           <input type="text" placeholder="description" required />
-          <input type="text" placeholder="description" required />
+          <input type="text" placeholder="price" required />
           <input type="text" placeholder="description" required />
           <TransactionType>
             <TransactionTypeButton variant="income" value="income">

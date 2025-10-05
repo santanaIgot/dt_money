@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server":"json-server server.json -p 3333 - D 500",
+    "dev:server": "json-server server.json -p 3333 - D 500",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -17,7 +17,9 @@
     "phosphor-react": "^1.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "styled-components": "^6.1.19"
+    "react-hook-form": "^7.64.0",
+    "styled-components": "^6.1.19",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
