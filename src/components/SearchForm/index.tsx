@@ -10,8 +10,6 @@ const searchFormSchema = z.object({
     query: z.string(),
 })
 
-console.log(searchFormSchema);
-
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>
 

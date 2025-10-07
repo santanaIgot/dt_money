@@ -15,7 +15,7 @@ const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
   category:z.string(),
-  type:z.enum(['income', 'outcome'])
+  // type:z.enum(['income', 'outcome'])
 })
 
 
@@ -27,11 +27,9 @@ export function NewTrasactionModal() {
   })
 
  async function createNewTrasaction(data: newTransactionInputs) {
-  await new Promise(resolve => setTimeout(resolve, 2000))
-
-  console.log(data);
-  
-}
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    console.log('seu data:--------',data);
+  }
   return (
     <Dialog.Portal>
       <Overlay />
@@ -41,9 +39,9 @@ export function NewTrasactionModal() {
         </Dialog.Close>
         <Dialog.Title>Nova transação</Dialog.Title>
         <form onSubmit={handleSubmit(createNewTrasaction)}>
-          <input type="text" {...register('description')}  placeholder="description" required />
-          <input type="text" {...register('price',{valueAsNumber:true})} placeholder="price" required />
-          <input type="text" {...register('category')} placeholder="category" required />
+          <input type="text" placeholder="description" required {...register('description')}/>
+          <input type="text" placeholder="price" required {...register('price', {valueAsNumber:true})}/>
+          <input type="text" placeholder="category" required {...register('category')}/>
           <TransactionType>
             <TransactionTypeButton variant="income" value="income">
               <ArrowCircleUp size={24} />
@@ -54,8 +52,9 @@ export function NewTrasactionModal() {
               <ArrowCircleDown size={24} />
               Saida
             </TransactionTypeButton>
+              <button type="submit" disabled={isSubmitting}>Cadastrar</button>
           </TransactionType>
-          <button type="submit" disabled={isSubmitting}>Cadastrar</button>
+        
         </form>
       </Content>
     </Dialog.Portal>
