@@ -95,6 +95,6 @@ export const TransactionTypeButton = styled(RadioGroup.Item)<TransactionTypeButt
 
 
     svg{
-        ${props => props.variant == 'income' ? props.theme['green-300'] : props.theme['red-300']}
+        ${(props) => props.variant == 'income' ? props.theme['green-300'] : props.theme['red-300']}
     }
 `
