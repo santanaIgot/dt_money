@@ -16,7 +16,7 @@ const searchFormSchema = z.object({
 type SearchFormInputs = z.infer<typeof searchFormSchema>
 
 export function SearchForm() {
-    const {fetchTrasactions} = useContext(TransactionContext);
+    const {fetchTransactions} = useContext(TransactionContext);
     const {register, handleSubmit, formState:{
         isSubmitting,
     }} = useForm<SearchFormInputs>({
@@ -26,7 +26,7 @@ export function SearchForm() {
     async function handleSearchTransactions(data: SearchFormInputs) {
         console.log(data.query);
         
-        await fetchTrasactions(data.query)
+        await fetchTransactions(data.query)
     }
     return(
         <SearchFormContainer onSubmit={handleSubmit(handleSearchTransactions)}>
